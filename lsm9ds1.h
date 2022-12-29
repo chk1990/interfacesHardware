@@ -6,12 +6,15 @@
 #ifndef _LSM9DS1_H_
 #define _LSM9DS1_H_
 
+#ifdef __unix
 #include "interfacesHardware.h"
+#endif // __unix
+
 #include "group_names_doxy.h"
 
 #ifdef __STM32F1xx_HAL_CONF_H
-#include "../../Core/Inc/stm32f1xx_hal_conf.h"
-#include "../STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
+//#include "../../Core/Inc/stm32f1xx_hal_conf.h"
+//#include "../STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
 #endif // __STM32F1xx_HAL_CONF_H
 
 /**

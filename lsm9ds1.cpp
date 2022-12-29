@@ -5,12 +5,15 @@
 
 #include <iostream>
 
+#ifdef __unix
 #include "interfacesHardware.h"
+#endif // __unix
+
 #include "lsm9ds1.h"
 
 #ifdef __STM32F1xx_HAL_CONF_H
-#include "../../Core/Inc/stm32f1xx_hal_conf.h"
-#include "../STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
+//#include "../../Core/Inc/stm32f1xx_hal_conf.h"
+//#include "../STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
 #endif // __STM32F1xx_HAL_CONF_H
 
 /* ================================================================================
@@ -551,3 +554,22 @@ Lsm9ds1Spi::writeReg(uint8_t reg, uint8_t* dataReg, uint8_t nBytes)
  * I2C Interface
  * ================================================================================ */
 
+/**
+ * @brief Constructor
+ */
+Lsm9ds1I2c::Lsm9ds1I2c(void)
+{
+#ifdef __unix
+
+#endif // __unix
+}
+
+/**
+ * @brief Destructor
+ */
+Lsm9ds1I2c::~Lsm9ds1I2c(void)
+{
+#ifdef __unix
+
+#endif // __unix
+}
