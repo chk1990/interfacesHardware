@@ -9,6 +9,11 @@
 #include "interfacesHardware.h"
 #include "group_names_doxy.h"
 
+#ifdef __STM32F1xx_HAL_CONF_H
+#include "../../Core/Inc/stm32f1xx_hal_conf.h"
+#include "../STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
+#endif // __STM32F1xx_HAL_CONF_H
+
 /**
   * @addtogroup devices
   * @{
@@ -55,6 +60,7 @@
  * }
  * @endcode
  * @todo Adapt for other ranges of measurement
+ * @todo Make usable for STM32
  */
 class Lsm9ds1Spi {
 public:
@@ -63,7 +69,12 @@ public:
     ~Lsm9ds1Spi(void);
 
     // initialization and termination
+#ifdef __unix
     int8_t init(char *filename, int speed);
+#endif // __unix
+#ifdef __STM32F1xx_HAL_CONF_H
+    int8_t init(SPI_HandleTypeDef *handle);
+#endif // __STM32F1xx_HAL_CONF_H
     void resetDevice(void);
     int8_t terminate(void);
 
@@ -99,6 +110,10 @@ private:
 #ifdef __unix
     ISpi_Master* _interface = new ISpi_Master; ///< SPI interface to be used
 #endif // __unix
+
+#ifdef __STM32F1xx_HAL_CONF_H
+    SPI_HandleTypeDef *handleSpi = new SPI_HandleTypeDef; ///< SPI interface to be used
+#endif // __STM32F1xx_HAL_CONF_H
 
 };
 

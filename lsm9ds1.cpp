@@ -8,6 +8,10 @@
 #include "interfacesHardware.h"
 #include "lsm9ds1.h"
 
+#ifdef __STM32F1xx_HAL_CONF_H
+#include "../../Core/Inc/stm32f1xx_hal_conf.h"
+#include "../STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
+#endif // __STM32F1xx_HAL_CONF_H
 
 /* ================================================================================
  * SPI Interface
@@ -33,6 +37,7 @@ Lsm9ds1Spi::~Lsm9ds1Spi(void)
 #endif // __unix
 }
 
+#ifdef __unix
 /**
  * @brief Initializes the SPI interface to be used with the LSM9DS1 IMU. The used SPI mode is CPOL = 0 and CPHA = 0.
  * @param[in] filename File specifying the SPI-device for the interface
@@ -43,14 +48,31 @@ int8_t
 Lsm9ds1Spi::init(char *filename, int speed)
 {
     int8_t ret = -1;
-#ifdef __unix
+
     ret = _interface->openDevice(filename, 0, speed, 8, 0, 0);
-#endif // __unix
 
     resetDevice();
 
     return ret;
 }
+#endif // __unix
+
+#ifdef __STM32F1xx_HAL_CONF_H
+/**
+ * @brief Initializes the SPI interface to be used with the LSM9DS1 IMU
+ * @param[in] handle Handle specifying the SPI-device for the interface
+ * @return -1 on failure; non-negative on success
+ */
+int8_t init(SPI_HandleTypeDef *handle)
+{
+    int8_t ret = -1;
+
+    //
+
+    ret = 0;
+    return ret;
+}
+#endif // __STM32F1xx_HAL_CONF_H
 
 /**
  * @brief Reset all present configurations of the device
