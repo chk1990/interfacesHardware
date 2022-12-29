@@ -1018,6 +1018,7 @@ ITcpClient::~ITcpClient(void)
 #endif // __unix
 }
 
+#ifdef __unix
 /**
  * @brief Setup the Client configuration, parse the port number
  * @param[in] serverIp IP address of the server
@@ -1030,7 +1031,6 @@ ITcpClient::init(char* serverIp, int pNum)
     _serverIp = serverIp;
     _portNum = pNum;
 
-#ifdef __unix
     _fileId = socket(AF_INET, SOCK_STREAM, 0);
     if(0 > _fileId) {
         closeSocket();
@@ -1053,8 +1053,8 @@ ITcpClient::init(char* serverIp, int pNum)
     _serverAddr.sin_family = AF_INET; // set address type
     _serverAddr.sin_addr.s_addr = inet_addr(inet_ntoa(*(struct in_addr*)*_server->h_addr_list));
     _serverAddr.sin_port = htons(_portNum); // set port number
-#endif // __unix
 }
+#endif // __unix
 
 /**
  * @brief Establish a connection to the server
