@@ -49,9 +49,11 @@ using namespace std;
  */
 IGpio::IGpio()
 {
+#ifdef __unix
     _filenamePortOpen = "/sys/class/gpio/export";
     _filenamePortClose = "/sys/class/gpio/unexport";
     _pathGpio = "/sys/class/gpio/";
+#endif // __unix
 
     init();
 }
