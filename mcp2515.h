@@ -6,7 +6,10 @@
 #ifndef _MCP2515_H_
 #define _MCP2515_H_
 
+#ifdef __unix
 #include "interfacesHardware.h"
+#endif // __unix
+
 #include "group_names_doxy.h"
 #define MCP2515_STD_EXT_IDENT 3 ///< Constant for standard and extended identifier to be used in Mcp2515
 #define MCP2515_STD_IDENT 0 ///< Constant for standard identifier to be used in Mcp2515
@@ -127,7 +130,9 @@ public:
     ~Mcp2515(void);
 
     // initialization and termination
+#ifdef __unix
     int8_t init(char* filename, int mode, int speed);
+#endif // __unix
     void resetDevice(void);
     int8_t terminate(void);
 

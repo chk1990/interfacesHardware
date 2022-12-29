@@ -5,7 +5,10 @@
 
 #include <iostream>
 
+#ifdef __unix
 #include "interfacesHardware.h"
+#endif // __unix
+
 #include "mcp2515.h"
 
 using namespace std;
@@ -30,6 +33,7 @@ Mcp2515::~Mcp2515(void)
 #endif // __unix
 }
 
+#ifdef __unix
 /**
  * @brief Initializes the SPI interface to be used with the MCP2515 controller. By default all interrupts are enabled, all types of identifiers are received and rollover mode is enabled.
  *
@@ -44,9 +48,8 @@ int8_t
 Mcp2515::init(char* filename, int mode, int speed)
 {
     int8_t ret = -1;
-#ifdef __unix
+
     ret = _interface->openDevice(filename, mode, speed, 8, 0, 0);
-#endif // __unix
 
     // reset all configurations of the device
     resetDevice();
@@ -79,6 +82,7 @@ Mcp2515::init(char* filename, int mode, int speed)
 
     return ret;
 }
+#endif // __unix
 
 /**
  * @brief Reset all present configurations of the device
@@ -93,9 +97,8 @@ Mcp2515::resetDevice(void)
 
 #ifdef __unix
     _interface->readWriteBytes(&byteOut, &byteIn, 1);
-#endif // __unix
-
     usleep(10000); // pass time to reset
+#endif // __unix
 }
 
 /**
